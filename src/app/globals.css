@@ -5,13 +5,15 @@
 }
 
 body {
-  font-family: --font-montserrat;
+  font-family: var(--font-montserrat), Arial;
   color: white;
 }
 
 button,
+input,
 a {
   box-sizing: border-box;
+  font-family: var(--font-montserrat), Arial;
 }
 
 a {
@@ -26,4 +28,8 @@ h5,
 h6 {
   margin: 0;
   padding: 0;
+}
+
+li {
+  list-style: none;
 }
