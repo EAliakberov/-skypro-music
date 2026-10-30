@@ -1,0 +1,95 @@
+.filter__button {
+  position: relative;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.filter__button:not(:last-child) {
+  margin-right: 10px;
+}
+
+.filter__toggle {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  border: 1px solid #ffffff;
+  border-radius: 60px;
+  padding: 6px 20px;
+  white-space: nowrap;
+  &.active {
+    color: #b672ff;
+    border-color: #b672ff;
+  }
+}
+
+.filter__toggle:hover {
+  color: #d7b1ff;
+  border: 1px solid #d7b1ff;
+}
+
+.filterItem__container {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  padding: 34px;
+
+  z-index: 10;
+  min-width: 100%;
+  background-color: #313131;
+  border-radius: 12px;
+}
+
+.filter__list {
+  height: max-content;
+  max-height: 237px;
+  overflow-y: auto;
+  width: max-content;
+  max-width: 248px;
+  padding-right: 24px;
+
+  display: flex;
+  flex-direction: column;
+
+  font-size: 20px;
+  line-height: 24px;
+
+  gap: 28px;
+
+  list-style: none;
+  margin: 0;
+
+  white-space: nowrap;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 50%;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(75, 73, 73, 1);
+    border-radius: 50px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 50px;
+  }
+}
+
+.filter__li {
+  font-weight: 400;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.filter__li:hover {
+  color: #d7b1ff;
+}
+
+.selected {
+  color: #b672ff;
+  text-decoration: underline;
+}
