@@ -2,7 +2,10 @@ import Link from 'next/link';
 import styles from './track.module.css';
 import { TrackType } from '../../../data';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { setCurrentTrack } from '@/store/features/trackSlice';
+import {
+  setCurrentPlayList,
+  setCurrentTrack,
+} from '@/store/features/trackSlice';
 import classnames from 'classnames';
 
 export function extractFilterOptions(tracks: TrackType[]) {
@@ -32,7 +35,13 @@ function formatDuration(totalSeconds: number): string {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
-export function Track(track: TrackType) {
+export function Track({
+  track,
+  playlist,
+}: {
+  track: TrackType;
+  playlist: TrackType[];
+}) {
   const dispatch = useAppDispatch();
   const tracks = useAppSelector((state) => {
     return state.tracks;
@@ -40,6 +49,7 @@ export function Track(track: TrackType) {
 
   function handleTrackClick() {
     dispatch(setCurrentTrack(track));
+    dispatch(setCurrentPlayList(playlist));
   }
 
   return (
