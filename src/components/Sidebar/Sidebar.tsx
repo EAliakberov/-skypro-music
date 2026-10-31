@@ -13,6 +13,7 @@ export default function Sidebar() {
           </svg>
         </div>
       </div>
+
       <div className={styles.sidebar__block}>
         <div className={styles.sidebar__list}>
           <div className={styles.sidebar__item}>
