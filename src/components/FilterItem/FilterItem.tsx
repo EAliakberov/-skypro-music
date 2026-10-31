@@ -17,8 +17,6 @@ export default function FilterItem({
   onToggleOpen,
   onSelect,
 }: FilterItemProps) {
-  console.log(list);
-
   return (
     <div className={styles.filter__button}>
       <button
