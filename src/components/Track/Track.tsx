@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import styles from './track.module.css';
 import { TrackType } from '../../../data';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+import { setCurrentTrack } from '@/store/features/trackSlice';
+import classnames from 'classnames';
 
 export function extractFilterOptions(tracks: TrackType[]) {
   const authors = new Set<string>();
@@ -22,11 +25,6 @@ export function extractFilterOptions(tracks: TrackType[]) {
   };
 }
 
-type TrackProps = Pick<
-  TrackType,
-  'name' | 'author' | 'album' | 'duration_in_seconds'
->;
-
 // Переводит секунды в формат м:сс
 function formatDuration(totalSeconds: number): string {
   const minutes = Math.floor(totalSeconds / 60);
@@ -34,37 +32,49 @@ function formatDuration(totalSeconds: number): string {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
-export function Track({
-  name,
-  author,
-  album,
-  duration_in_seconds,
-}: TrackProps) {
+export function Track(track: TrackType) {
+  const dispatch = useAppDispatch();
+  const tracks = useAppSelector((state) => {
+    return state.tracks;
+  });
+
+  function handleTrackClick() {
+    dispatch(setCurrentTrack(track));
+  }
+
   return (
-    <div className={styles.playlist__item}>
+    <div className={styles.playlist__item} onClick={handleTrackClick}>
       <div className={styles.playlist__track}>
         <div className={styles.track__title}>
           <div className={styles.track__titleImage}>
-            <svg className={styles.track__titleSvg}>
-              <use href="/img/icon/sprite.svg#icon-note" />
-            </svg>
+            {tracks.currentTrack?._id != track._id ? (
+              <svg className={styles.track__titleSvg}>
+                <use href="/img/icon/sprite.svg#icon-note" />
+              </svg>
+            ) : (
+              <div
+                className={classnames(styles.track__imgDot, {
+                  [styles.active]: tracks.isPlay,
+                })}
+              ></div>
+            )}
           </div>
           <div>
             <Link className={styles.track__titleLink} href="#">
-              {name}
+              {track.name}
             </Link>
           </div>
         </div>
 
         <div className={styles.track__author}>
           <Link className={styles.track__authorLink} href="#">
-            {author}
+            {track.author}
           </Link>
         </div>
 
         <div className={styles.track__album}>
           <Link className={styles.track__albumLink} href="#">
-            {album}
+            {track.album}
           </Link>
         </div>
 
@@ -73,7 +83,7 @@ export function Track({
             <use href="/img/icon/sprite.svg#icon-like" />
           </svg>
           <span className={styles.track__timeText}>
-            {formatDuration(duration_in_seconds)}
+            {formatDuration(track.duration_in_seconds)}
           </span>
         </div>
       </div>

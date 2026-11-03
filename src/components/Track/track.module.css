@@ -20,6 +20,28 @@
   align-items: center;
 }
 
+@keyframes pulse-scale {
+  0% {
+    transform: scale(1); /* Исходный размер */
+  }
+  50% {
+    transform: scale(1.2); /* Увеличиваем на 20% в середине цикла */
+  }
+  100% {
+    transform: scale(1); /* Возвращаем к исходному размеру */
+  }
+}
+
+.track__imgDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #b672ff;
+  &.active {
+    animation: pulse-scale 500ms ease-in-out 0ms infinite alternate;
+  }
+}
+
 .track__title {
   display: -webkit-box;
   display: -ms-flexbox;
